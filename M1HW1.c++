@@ -16,13 +16,14 @@ int main()
    double box_office = 2.923;   // any number with a decimal is a double
 
    // output
-   cout << "The movie is called "<< movie_name << endl;
+   cout << "The movie is called "<< movie_name << "." << endl;
    cout << "The director is " << director << "." << endl;  
    cout << "Box office was $" << box_office << " billion." << endl;
    
-   
-   // pri
-     
+   // Movie quote
+   cout << "       Movie quote" << endl; 
+   cout << "“If not us, then who?” – Teo." << endl; 
+   cout << "Jake Sully : “I was a warrior who dreamed he could bring peace. Sooner or later, though, you always wake up.“" << endl; 
    
    return 0; // no errors
 
