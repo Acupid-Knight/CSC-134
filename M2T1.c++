@@ -41,6 +41,6 @@ int main()
    double customer_cost = apples_to_buy * price_each;
    cout << "For " << apples_to_buy << " your total is $" << customer_cost << endl;
 
-   return 0; // no errors
+   return 0; // done
 
 }
