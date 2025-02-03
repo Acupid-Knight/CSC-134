@@ -28,7 +28,7 @@ int main()
    
    // Calculate subtotal, tax, total
    tax_percent = 0.08; // assignment says &%, so 8/100 (as a double)
-   subtotal = food_price * how_many1;
+   subtotal = food_price * how_many;
    tax_cost = subtotal * tax_percent; // &% of 45.99
    total    = subtotal + tax_cost;
    // print the receipt
