@@ -14,7 +14,7 @@
 ********************************************************************************************/
 
 #include "raylib.h"
-
+#include <stdlib.h>
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
 //------------------------------------------------------------------------------------------
@@ -41,11 +41,15 @@ int main(void)
     SetTargetFPS(60);               // Set desired framerate (frames-per-second)
     //--------------------------------------------------------------------------------------
     // All our variables
-    int player_x = 0;
-    int player_y = 0;
-    int speed_x = 8; 
-    int speed_y = 8;
+    int player_x = 100;
+    int player_y = 100;
+    int base_speed = 5;
+    int speed_x;
+    int speed_y;
     int speedUp = 0;
+    int fruit_x;
+    int fruit_y;
+
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -146,52 +150,71 @@ int main(void)
                     speedUp ++;
                     if (speedUp > 60 ) { // 5 seconds is 5 * 60
                         speedUp = 0;
-                        speed_x ++;
-                        speed_y ++; 
+                        base_speed++;
                     }
                     // speed cap
-                    if (speed_x > 30) {
-                        speed_x = 30;
+                    if (base_speed > 20) {
+                        base_speed = 20;
                     }    
-                    if (speed_y > 30) {
-                        speed_y = 30; 
-                    }
+
                     if (IsKeyDown(KEY_LEFT)){
-                        player_x = player_x - speed_x;
+                        speed_x = -base_speed;
+                        speed_y = 0;
                     }
                     if (IsKeyDown(KEY_RIGHT)){
-                        player_x = player_x - speed_x;
+                        speed_x = base_speed;
+                        speed_y = 0;
                     } 
                     if (IsKeyDown(KEY_UP)){
-                        player_y = player_y - speed_y;  
+                        speed_y = -base_speed;
+                        speed_x = 0;
                       }  
                     if (IsKeyDown(KEY_DOWN)){
-                        player_y = player_y - speed_y;  
+                        speed_y = base_speed;
+                        speed_x = 0;                        
                     }  
-                       
+                    // This should use inertia?
+                   player_x = player_x + speed_x;
+                   player_y = player_y + speed_y;
                     // Wrap around
-                    if (player_x > screenWidth || player_x < 0) {
-                        //player_x = 0; // wrap
-                        speed_x = -speed_x; // bounce
-                    // speed up!
-                    /*
-                    if (speed_x >0) {
-                        speed_x++;
+                    if (player_x > screenWidth) {
+                        player_x = 0;                   
                     }
-                    if (speed_x <0) {
-                        speed_x--;
-                    }
-                    */
+                    if (player_x < 0){     
+                        player_x = screenWidth;
+                    }    
+                    if (player_y > screenHeight){    
+                        player_y = 0;
+                    }    
+                    if(player_y < 0){
+                    player_y = screenHeight;
                   }
-                    if (player_y > screenHeight || player_y < 0) {
-                        // player_y = 0;
-                        speed_y = -speed_y; // bounce
-                    }
+                   
+                   
                     
+                    // draw a fruit
+                   fruit_x = 300;
+                   fruit_y = 300;
+                   DrawCircleGradient(fruit_x, fruit_y, 20, PINK, MAROON);
+                   DrawCircle(fruit_x-10, fruit_y-10, 6,  DARKPURPLE); 
+                   DrawCircle(fruit_x-10, fruit_y-10, 2, GREEN); 
              
                     // draw player
-                    DrawRectangle(player_x, player_y, 50, 50, DARKPURPLE);
+                    // Easiest if we assume player_x and player_y are in the CENTER
+                    DrawCircleGradient(player_x, player_y, 25, VIOLET, DARKPURPLE);
+                    DrawCircle(player_x - 10, player_y, 2, RAYWHITE);
+                    DrawCircle(player_x + 10, player_y, 2, RAYWHITE);
+                    DrawRectangle(player_x - 10, player_y + 10, 20, 2, RAYWHITE);
                    
+                   // Did we get the fruit? within 10 pixels
+                   // requires #include <stdlib.h>
+                   if (abs(player_x - fruit_x) < 10) {
+                       if (abs(player_y - fruit_y) < 10) {
+                       player_x = 100;
+                       player_y = 100;
+                       currentScreen = ENDING; 
+                       }
+                   }
                 } break;
                 case ENDING:
                 {
