@@ -1,0 +1,12 @@
+Name: u
+Race: orce
+Class: paladin
+Strength: 14
+Dexterity: 11
+Constitution: 11
+Intelligence: 11
+Wisdom: 12
+Charisma: 10
+Level: 1
+XP: 0
+HP: 0/0
