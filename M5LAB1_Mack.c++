@@ -31,6 +31,10 @@ void choice_come_front_these_steps();
 void choice_leave_through_back_door();
 void choice_leave_under_the_stairwell(); 
 void choice_stay_under_the_stair();
+void choice_leave_to_go_up_stair();
+void choice_explore_down_stair();
+void choice_investigate_where_he_went(); 
+int get_choice(int size); 
 // TODO: add more choices here
 
 int main() {
@@ -132,8 +136,7 @@ cout << "You go hide under the stairwell, where he walks pass you" << endl;
 cout << "1. Stay still!" << endl;
 cout << "2. Leave the stairwell" << endl;
 int choice;
-cout << "Choose "; 
-cin >> choice;
+choice = get_choice (2);
 if ( 1== choice) {
    choice_stay_under_the_stair();   
 }   else if (2 == choice) {
@@ -144,9 +147,23 @@ if ( 1== choice) {
 void choice_leave_through_back_door(){
 
 }
-void choice_you_hide_under_the_stairwell(){
+void choice_you_hide_under_the_stairwell() {
+cout << "As you hide under the stair, the man goes out the back door to try to find you." << endl;
+cout << "When he goes out the back-door, you leave spot to explore." << endl;
+cout << "1. Investigate where the man went" << endl;
+cout << "2. leave spot to go up stair to explore" << endl;
+cout << "3. leve spot to explore downstairs" << endl; 
+int choice;
+choice = get_choice (2);
+if ( 1== choice) {
+   choice_investigate_where_he_went();
+} else if (2 == choice) {
+     choice_explore_down_stair();
+ } else if ( 3 == choice) { 
+     choice_leave_to_go_up_stair();
+   }
+  }
 
-}
 void choice_leave_under_the_stairwell() { 
 
 }
@@ -154,3 +171,32 @@ void choice_stay_under_the_stair() {
 
 }
 
+void choice_leave_to_go_up_stair() {
+
+}
+void choice_explore_down_stair() {
+
+}
+void choice_investigate_where_he_went() {
+
+} 
+
+
+
+int get_choice(int size) {
+  // Only allow choices between 1 and size
+  int numeric_limits; 
+  int choice=0;
+  while (choice < 1 || choice > size) {
+    cout << "Choose: ";
+    cin >> choice;
+        // Check if the input is valid
+        if (cin.fail()) {
+          cin.clear(); // Clear the error flag
+          cin.ignore(99999, '\n'); // Discard invalid input
+          cout << "Invalid input. Please enter a number between 1 and " << size << "." << endl;
+        }
+  }
+  cout << "You picked option #" << choice << endl;
+  return choice;
+}
